@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">A1L1_Intro</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="hello_world">Привет мир!</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="english" translatable="false">English</string>
+    <string name="start">Старт</string>
+</resources>
