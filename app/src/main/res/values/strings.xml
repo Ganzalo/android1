@@ -1,3 +1,5 @@
 <resources>
-
+    <string name="app_name" translatable="false">A1L1_Intro</string>
+    <string name="coat_of_arms">Герб</string>
+    <string name="Saint_Petersburg">Санкт-Петербург</string>
 </resources>
