@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="welcome">Добро пожаловать!</string>
-    <string name="hello_world">Привет мир!</string>
-    <string name="start">Старт</string>
+   
 </resources>
