@@ -19,7 +19,7 @@ public final class MainActivityPresenter {
         }
     }
 
-    public void showView(View clickView, int visible) {
+    private void showView(View clickView, int visible) {
         if (clickView.equals(view.humidityCheckBox))
             view.humidityTextView.setVisibility(visible);
         else

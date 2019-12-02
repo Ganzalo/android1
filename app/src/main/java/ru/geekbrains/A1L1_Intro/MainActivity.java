@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public TextView humidityTextView;
     public TextView overcastTextView;
 
-    public final static String HUMIDITY_STATE = "humidityCheckBox";
-    public final static String OVERCAST_STATE = "overcastCheckBox";
+    private final static String HUMIDITY_STATE = "humidityState";
+    private final static String OVERCAST_STATE = "overcastState";
 
     private MainActivityPresenter presenter;
 
@@ -92,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        boolean humidityState = humidityCheckBox.isChecked();
-        boolean overcastState = overcastCheckBox.isChecked();
-        outState.putBoolean(HUMIDITY_STATE, humidityState);
-        outState.putBoolean(OVERCAST_STATE, overcastState);
+        outState.putBoolean(HUMIDITY_STATE, humidityCheckBox.isChecked());
+        outState.putBoolean(OVERCAST_STATE, overcastCheckBox.isChecked());
         super.onSaveInstanceState(outState);
         Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "MainActivity: onSaveInstanceState()");
