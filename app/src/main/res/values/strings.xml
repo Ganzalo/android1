@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">A1L1_Intro</string>
     <string name="coat_of_arms">Герб</string>
-    <string name="Saint_Petersburg">Санкт-Петербург</string>
+    <string name="saint_petersburg">Санкт-Петербург</string>
+    <string name="show_humidity">Показывать влажность</string>
+    <string name="show_overcast">Показывать облачность</string>
 </resources>

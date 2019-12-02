@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="coat_of_arms">Герб</string>
-    <string name="Saint_Petersburg">Санкт-Петербург</string>
+    <string name="saint_petersburg">Санкт-Петербург</string>
+    <string name="show_humidity">Показывать влажность</string>
+    <string name="show_overcast">Показывать облачность</string>
 </resources>

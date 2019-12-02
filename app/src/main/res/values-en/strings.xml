@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="coat_of_arms">coat of arms</string>
-    <string name="Saint_Petersburg">Saint-Petersburg</string>
+    <string name="saint_petersburg">Saint-Petersburg</string>
+    <string name="show_humidity">Show humidity</string>
+    <string name="show_overcast">Show overcast</string>
 </resources>
