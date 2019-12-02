@@ -43,22 +43,14 @@ public class MainActivity extends AppCompatActivity {
         humidityCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((CheckBox) view).isChecked()){
-                    presenter.showView(view);
-                } else {
-                    presenter.hideView(view);
-                }
+                presenter.checkedView(view);
             }
         });
 
         overcastCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(((CheckBox) view).isChecked()){
-                    presenter.showView(view);
-                } else {
-                    presenter.hideView(view);
-                }
+                presenter.checkedView(view);
             }
         });
     }
@@ -114,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         humidityCheckBox.setChecked(savedInstanceState.getBoolean(HUMIDITY_STATE));
         overcastCheckBox.setChecked(savedInstanceState.getBoolean(OVERCAST_STATE));
+        presenter.checkedView(humidityCheckBox);
+        presenter.checkedView(overcastCheckBox);
         Toast.makeText(getApplicationContext(), "onRestoreInstanceState()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "MainActivity: onRestoreInstanceState()");
     }

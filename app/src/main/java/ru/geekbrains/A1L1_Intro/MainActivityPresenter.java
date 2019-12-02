@@ -1,6 +1,7 @@
 package ru.geekbrains.A1L1_Intro;
 
 import android.view.View;
+import android.widget.CheckBox;
 
 public final class MainActivityPresenter {
 
@@ -10,17 +11,19 @@ public final class MainActivityPresenter {
         this.view = view;
     }
 
-    public void showView(View clickView) {
-        if (clickView.equals(view.humidityCheckBox))
-            view.humidityTextView.setVisibility(View.VISIBLE);
-        else
-            view.overcastTextView.setVisibility(View.VISIBLE);
+    public void checkedView(View view) {
+        if(((CheckBox) view).isChecked()){
+            showView(view, View.VISIBLE);
+        } else {
+            showView(view, View.INVISIBLE);
+        }
     }
 
-    public void hideView(View clickView) {
+    public void showView(View clickView, int visible) {
         if (clickView.equals(view.humidityCheckBox))
-            view.humidityTextView.setVisibility(View.INVISIBLE);
+            view.humidityTextView.setVisibility(visible);
         else
-            view.overcastTextView.setVisibility(View.INVISIBLE);
+            view.overcastTextView.setVisibility(visible);
     }
+
 }
