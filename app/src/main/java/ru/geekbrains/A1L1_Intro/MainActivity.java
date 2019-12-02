@@ -21,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private final static String HUMIDITY_STATE = "humidityState";
     private final static String OVERCAST_STATE = "overcastState";
 
-    private MainActivityPresenter presenter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +35,18 @@ public class MainActivity extends AppCompatActivity {
         overcastCheckBox = findViewById(R.id.overcastCheckBox);
         humidityTextView = findViewById(R.id.valueHumidityTextView);
         overcastTextView = findViewById(R.id.valueOvercastTextView);
-        presenter = new MainActivityPresenter(this);
 
         humidityCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.checkedView(view);
+                humidityTextView.setVisibility(checkedView(view));
             }
         });
 
         overcastCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.checkedView(view);
+                overcastTextView.setVisibility(checkedView(view));
             }
         });
     }
@@ -104,10 +100,18 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         humidityCheckBox.setChecked(savedInstanceState.getBoolean(HUMIDITY_STATE));
         overcastCheckBox.setChecked(savedInstanceState.getBoolean(OVERCAST_STATE));
-        presenter.checkedView(humidityCheckBox);
-        presenter.checkedView(overcastCheckBox);
+        humidityTextView.setVisibility(checkedView(humidityCheckBox));
+        overcastTextView.setVisibility(checkedView(overcastCheckBox));
         Toast.makeText(getApplicationContext(), "onRestoreInstanceState()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "MainActivity: onRestoreInstanceState()");
+    }
+
+    public int checkedView(View view) {
+        if(((CheckBox) view).isChecked()){
+            return View.VISIBLE;
+        } else {
+            return View.INVISIBLE;
+        }
     }
 
 }
