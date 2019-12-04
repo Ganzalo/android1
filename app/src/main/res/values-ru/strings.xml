@@ -4,4 +4,6 @@
     <string name="saint_petersburg">Санкт-Петербург</string>
     <string name="show_humidity">Показывать влажность</string>
     <string name="show_overcast">Показывать облачность</string>
+    <string name="humidity">Влажность:</string>
+    <string name="overcast">Облачность:</string>
 </resources>

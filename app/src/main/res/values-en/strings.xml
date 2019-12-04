@@ -4,4 +4,6 @@
     <string name="saint_petersburg">Saint-Petersburg</string>
     <string name="show_humidity">Show humidity</string>
     <string name="show_overcast">Show overcast</string>
+    <string name="humidity">Humidity:</string>
+    <string name="overcast">Overcast:</string>
 </resources>

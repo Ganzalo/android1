@@ -19,31 +19,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/coatOfArmsImageView"
-        android:layout_width="140dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/coat_of_arms"
-        android:scaleType="fitXY"
-        android:src="@drawable/saint_petersburg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityTextView" />
-
-    <TextView
-        android:id="@+id/valueTempTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:text="+18"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coatOfArmsImageView"
-        tools:ignore="HardcodedText" />
-
     <CheckBox
         android:id="@+id/humidityCheckBox"
         android:layout_width="wrap_content"
@@ -51,47 +26,29 @@
         android:text="@string/show_humidity"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valueTempTextView" />
-
-    <TextView
-        android:id="@+id/valueHumidityTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/colorBlack"
-        android:text="90%"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/humidityCheckBox"
-        app:layout_constraintTop_toTopOf="@+id/humidityCheckBox"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityTextView" />
 
     <CheckBox
         android:id="@+id/overcastCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="@string/show_overcast"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidityCheckBox" />
 
-    <TextView
-        android:id="@+id/valueOvercastTextView"
+    <Button
+        android:id="@+id/showWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/colorBlack"
-        android:text="облачно"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/overcastCheckBox"
-        app:layout_constraintTop_toTopOf="@+id/overcastCheckBox"
-        tools:ignore="HardcodedText" />
+        android:text="Показать погоду"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overcastCheckBox" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
