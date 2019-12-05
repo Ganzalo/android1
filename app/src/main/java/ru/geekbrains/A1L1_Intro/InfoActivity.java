@@ -2,6 +2,8 @@ package ru.geekbrains.A1L1_Intro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,7 @@ public class InfoActivity extends AppCompatActivity {
     Button moreDetailsButton;
 
     private static Map<String, Integer> resources = new HashMap<>();
+    private static final String URL = "https://ru.wikipedia.org/wiki/";
 
     static {
         resources.put("Москва", R.drawable.moscow);
@@ -46,7 +49,9 @@ public class InfoActivity extends AppCompatActivity {
         moreDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Uri uri = Uri.parse(URL + cityTextView.getText().toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 
