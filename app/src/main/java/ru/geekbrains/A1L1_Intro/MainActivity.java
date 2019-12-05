@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button showWeatherBtn;
 
     final static String KEY_TO_DATA = "KEY_TO_DATA";
+    private final static String CITY_STATE = "cityState";
     private final static String HUMIDITY_STATE = "humidityState";
     private final static String OVERCAST_STATE = "overcastState";
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         showWeatherBtn = findViewById(R.id.showWeather);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, cities);
+                R.layout.preview_text, cities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citiesSpinner.setAdapter(adapter);
 
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        citiesSpinner.getSelectedItemPosition();
+        outState.putInt(CITY_STATE, citiesSpinner.getSelectedItemPosition());
         outState.putBoolean(HUMIDITY_STATE, humidityCheckBox.isChecked());
         outState.putBoolean(OVERCAST_STATE, overcastCheckBox.isChecked());
         super.onSaveInstanceState(outState);
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        citiesSpinner.setSelection(savedInstanceState.getInt(CITY_STATE));
         humidityCheckBox.setChecked(savedInstanceState.getBoolean(HUMIDITY_STATE));
         overcastCheckBox.setChecked(savedInstanceState.getBoolean(OVERCAST_STATE));
         Log.d(TAG, "MainActivity: onRestoreInstanceState()");
