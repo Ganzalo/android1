@@ -6,4 +6,6 @@
     <string name="show_overcast">Show overcast</string>
     <string name="humidity">Humidity:</string>
     <string name="overcast">Overcast:</string>
+    <string name="show_weather">Show weather</string>
+    <string name="more_details">More details</string>
 </resources>

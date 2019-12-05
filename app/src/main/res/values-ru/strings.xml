@@ -6,4 +6,6 @@
     <string name="show_overcast">Показывать облачность</string>
     <string name="humidity">Влажность:</string>
     <string name="overcast">Облачность:</string>
+    <string name="show_weather">Показать погоду</string>
+    <string name="more_details">Подробнее</string>
 </resources>
