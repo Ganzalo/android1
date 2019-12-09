@@ -1,53 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- это макет для портретной ориентации -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/citiesSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/colorBlack"
-        android:textSize="28sp"
-        tools:listitem="@layout/preview_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- в портретной ориентации у activity только один фрагмент -->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+        <fragment android:name="ru.geekbrains.A1L1_Intro.fragments.CitiesFragment"
+            android:id="@+id/cities"
+            android:layout_width="match_parent" android:layout_height="match_parent" />
+    </FrameLayout>
 
-    <CheckBox
-        android:id="@+id/humidityCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_humidity"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/citiesSpinner" />
-
-    <CheckBox
-        android:id="@+id/overcastCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_overcast"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@+id/humidityCheckBox"
-        app:layout_constraintTop_toBottomOf="@+id/humidityCheckBox" />
-
-    <Button
-        android:id="@+id/showWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_weather"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overcastCheckBox" />
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
