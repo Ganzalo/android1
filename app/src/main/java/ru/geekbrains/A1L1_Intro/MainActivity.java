@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
         int countOfFragmentInManager = getSupportFragmentManager().getBackStackEntryCount();
         if(countOfFragmentInManager > 0) {
             getSupportFragmentManager().popBackStack();
-            /*getSupportFragmentManager().popBackStack("Some_Key",
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE);*/
         }
     }
 }

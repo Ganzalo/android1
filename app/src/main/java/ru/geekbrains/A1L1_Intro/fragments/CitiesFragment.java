@@ -16,11 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import  ru.geekbrains.A1L1_Intro.CoatContainer;
-import  ru.geekbrains.A1L1_Intro.CoatOfArmsActivity;
-import  ru.geekbrains.A1L1_Intro.R;
-
 import java.util.Objects;
+
+import ru.geekbrains.A1L1_Intro.CoatContainer;
+import ru.geekbrains.A1L1_Intro.WeatherInfoActivity;
+import ru.geekbrains.A1L1_Intro.R;
 
 public class CitiesFragment extends Fragment {
     private ListView listView;
@@ -125,7 +125,7 @@ public class CitiesFragment extends Fragment {
         } else {
             // Если нельзя вывести герб рядом, откроем вторую activity
             Intent intent = new Intent();
-            intent.setClass(Objects.requireNonNull(getActivity()), CoatOfArmsActivity.class);
+            intent.setClass(Objects.requireNonNull(getActivity()), WeatherInfoActivity.class);
             // и передадим туда параметры
             intent.putExtra("index", getCoatContainer());
             startActivity(intent);

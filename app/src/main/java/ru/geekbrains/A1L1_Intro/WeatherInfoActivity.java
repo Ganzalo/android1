@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ru.geekbrains.A1L1_Intro.fragments.CoatOfArmsFragment;
 
-public class CoatOfArmsActivity extends AppCompatActivity {
+public class WeatherInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
