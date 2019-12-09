@@ -1,7 +1,6 @@
 package ru.geekbrains.A1L1_Intro.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,13 +18,13 @@ import java.util.Objects;
 import ru.geekbrains.A1L1_Intro.CoatContainer;
 import ru.geekbrains.A1L1_Intro.R;
 
-public class CoatOfArmsFragment extends Fragment {
+public class WeatherInfoFragment extends Fragment {
 
     private TextView humidityTextView;
     private TextView overcastTextView;
 
-    static CoatOfArmsFragment create(CoatContainer container) {
-        CoatOfArmsFragment fragment = new CoatOfArmsFragment();    // создание
+    static WeatherInfoFragment create(CoatContainer container) {
+        WeatherInfoFragment fragment = new WeatherInfoFragment();    // создание
 
         // Передача параметра
         Bundle args = new Bundle();

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ru.geekbrains.A1L1_Intro.fragments.CoatOfArmsFragment;
+import ru.geekbrains.A1L1_Intro.fragments.WeatherInfoFragment;
 
 public class WeatherInfoActivity extends AppCompatActivity {
     @Override
@@ -22,7 +22,7 @@ public class WeatherInfoActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Если эта activity запускается первый раз (с каждым новым гербом первый раз)
             // то перенаправим параметр фрагменту
-            CoatOfArmsFragment details = new CoatOfArmsFragment();
+            WeatherInfoFragment details = new WeatherInfoFragment();
             details.setArguments(getIntent().getExtras());
             // Добавим фрагмент на activity
             getSupportFragmentManager()

@@ -105,14 +105,14 @@ public class CitiesFragment extends Fragment {
             listView.setItemChecked(currentPosition, true);
 
             // Проверим, что фрагмент с гербом существует в activity
-            CoatOfArmsFragment detail = (CoatOfArmsFragment)
+            WeatherInfoFragment detail = (WeatherInfoFragment)
                     Objects.requireNonNull(getFragmentManager()).findFragmentById(R.id.coat_of_arms);
 
             // Если есть необходимость, то выведем герб
             if (detail == null || detail.getIndex() != currentPosition) {
                 // Создаем новый фрагмент с текущей позицией для вывода герба
 
-                detail = CoatOfArmsFragment.create(getCoatContainer());
+                detail = WeatherInfoFragment.create(getCoatContainer());
 
                 // Выполняем транзакцию по замене фрагмента
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
