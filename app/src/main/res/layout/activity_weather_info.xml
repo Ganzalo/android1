@@ -31,18 +31,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityTextView" />
 
-    <TextView
-        android:id="@+id/valueTempTextView"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tempRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+18"
-        android:textColor="@color/colorBlack"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/coatOfArmsImageView"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <CheckBox
         android:id="@+id/humidityCheckBox"
@@ -51,7 +49,7 @@
         android:text="@string/show_humidity"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valueTempTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/tempRecyclerView" />
 
     <TextView
         android:id="@+id/valueHumidityTextView"
@@ -92,5 +90,7 @@
         app:layout_constraintStart_toEndOf="@+id/overcastCheckBox"
         app:layout_constraintTop_toTopOf="@+id/overcastCheckBox"
         tools:ignore="HardcodedText" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
