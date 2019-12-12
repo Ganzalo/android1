@@ -6,18 +6,19 @@
     android:layout_height="match_parent">
 
     <!-- Фрагмент с выбором городов -->
-    <fragment android:name="ru.geekbrains.A1L1_Intro.fragments.CitiesFragment"
+    <fragment
         android:id="@+id/cities"
-        android:layout_weight="1"
-        android:layout_width="0px"
-        android:layout_height="match_parent" />
+        android:name="ru.geekbrains.A1L1_Intro.fragments.CitiesFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <!-- Здесь будет герб выбранного города -->
     <FrameLayout
         android:id="@+id/coat_of_arms"
         android:layout_width="0px"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.25"
         android:background="?android:attr/detailsElementBackground"/>
 
 </LinearLayout>

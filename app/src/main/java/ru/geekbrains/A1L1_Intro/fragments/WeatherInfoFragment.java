@@ -71,7 +71,6 @@ public class WeatherInfoFragment extends Fragment {
     @SuppressLint("Recycle")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.activity_weather_info, null);
         init(view);
 
@@ -81,9 +80,11 @@ public class WeatherInfoFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.coatOfArmsImageView);
         TypedArray images = getResources().obtainTypedArray(R.array.coatofarms_imgs);
         imageView.setImageResource(images.getResourceId(getIndex(), -1));
-
+        
         return view;
     }
+
+
 
     private void init(View view) {
         CheckBox humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
@@ -126,14 +127,14 @@ public class WeatherInfoFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         adapter = new RecyclerViewAdapter(list);
 
-//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-//            layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-//        else
-//            layoutManager.setOrientation(RecyclerView.VERTICAL);
-
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
         tempRecyclerView.setLayoutManager(layoutManager);
         tempRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }
