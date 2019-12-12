@@ -1,7 +1,6 @@
 package ru.geekbrains.A1L1_Intro.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,19 +9,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import ru.geekbrains.A1L1_Intro.CoatContainer;
 import ru.geekbrains.A1L1_Intro.R;
@@ -30,7 +24,8 @@ import ru.geekbrains.A1L1_Intro.recyclerview.DataClass;
 import ru.geekbrains.A1L1_Intro.recyclerview.RecyclerViewAdapter;
 
 public class WeatherInfoFragment extends Fragment {
-    private TextView cityTextView;
+
+    private TextView citiesTextView;
     private TextView humidityTextView;
     private TextView overcastTextView;
     private CheckBox humidityCheckBox;
@@ -89,12 +84,13 @@ public class WeatherInfoFragment extends Fragment {
     }
 
     private void init(View view) {
+
         humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
         overcastCheckBox = view.findViewById(R.id.overcastCheckBox);
+        citiesTextView = view.findViewById(R.id.cityTextView);
         humidityTextView = view.findViewById(R.id.valueHumidityTextView);
         overcastTextView = view.findViewById(R.id.valueOvercastTextView);
         tempRecyclerView = view.findViewById(R.id.tempRecyclerView);
-        cityTextView = view.findViewById(R.id.cityTextView);
 
         humidityCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,14 +107,15 @@ public class WeatherInfoFragment extends Fragment {
                 overcastTextView.setVisibility(visibility);
             }
         });
-        initRecyclerView();
+        
+        fillRecyclerView();
     }
 
     private int visibleView(Boolean visible) {
         return visible ? View.VISIBLE : View.INVISIBLE;
     }
 
-    private void initRecyclerView() {
+    private void fillRecyclerView() {
         String[] dates = getResources().getStringArray(R.array.date);
         String[] temperatures = getResources().getStringArray(R.array.temperatures);
 
@@ -135,30 +132,5 @@ public class WeatherInfoFragment extends Fragment {
         tempRecyclerView.setLayoutManager(layoutManager);
         tempRecyclerView.setAdapter(adapter);
     }
-
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//       // Toast.makeText(getContext(), "tut", Toast.LENGTH_SHORT).show();
-//        if (savedInstanceState != null) {
-//            Parcel parcel = (Parcel) savedInstanceState.getSerializable("Test");
-//            //Toast.makeText(getContext(), parcel.humidity + " " + parcel.overcast, Toast.LENGTH_SHORT).show();
-//            if (parcel != null) {
-//                humidityTextView.setVisibility(visibleView(parcel.humidity));
-//                overcastTextView.setVisibility(visibleView(parcel.overcast));
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        Parcel parcel = new Parcel();
-//        parcel.humidity = humidityCheckBox.isChecked();
-//        parcel.overcast = overcastCheckBox.isChecked();
-//        //Toast.makeText(getContext(), cityTextView.getText().toString() + " " + humidityCheckBox.isChecked(), Toast.LENGTH_SHORT).show();
-//        //outState.putSerializable(cityTextView.getText().toString(), parcel);
-//        outState.putSerializable("Test", parcel);
-//    }
 
 }
