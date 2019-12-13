@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,9 @@ public class WeatherInfoFragment extends Fragment {
     private CheckBox overcastCheckBox;
     private RecyclerView tempRecyclerView;
     private RecyclerViewAdapter adapter;
+
+    private static final String OVERCAST_STATE = "OVERCAST_STATE";
+    private static final String HUMIDITY_STATE = "HUMIDITY_STATE";
 
     static WeatherInfoFragment create(CoatContainer container) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();    // создание
@@ -107,7 +111,15 @@ public class WeatherInfoFragment extends Fragment {
                 overcastTextView.setVisibility(visibility);
             }
         });
-        
+
+
+       // Toast.makeText(getContext(),"init", Toast.LENGTH_SHORT).show();
+        Holder.Entry entry = Holder.get(citiesTextView.getText().toString());
+        if (entry != null) {
+            //Toast.makeText(getContext(),"Holder.Entry " + entry.overcast, Toast.LENGTH_SHORT).show();
+            overcastCheckBox.setChecked(entry.overcast);
+            humidityCheckBox.setChecked(entry.humidity);
+        }
         fillRecyclerView();
     }
 
@@ -131,6 +143,31 @@ public class WeatherInfoFragment extends Fragment {
 
         tempRecyclerView.setLayoutManager(layoutManager);
         tempRecyclerView.setAdapter(adapter);
+    }
+
+
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        if (savedInstanceState != null) {
+//            boolean state = savedInstanceState.getBoolean(OVERCAST_STATE);
+//            Toast.makeText(getContext(),"onActivityCreated OVERCAST_STATE " + state, Toast.LENGTH_SHORT).show();
+//            overcastCheckBox.setChecked(state);
+//            humidityCheckBox.setChecked(savedInstanceState.getBoolean(HUMIDITY_STATE, false));
+//        }
+//    }
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //Toast.makeText(getContext(),"onSaveInstanceState OVERCAST_STATE " + overcastCheckBox.isChecked(), Toast.LENGTH_SHORT).show();
+        outState.putBoolean(OVERCAST_STATE, overcastCheckBox.isChecked());
+        outState.putBoolean(HUMIDITY_STATE, humidityCheckBox.isChecked());
+
+        Holder.put(citiesTextView.getText().toString(), new Holder.Entry(citiesTextView.getText().toString(),
+                humidityCheckBox.isChecked(), overcastCheckBox.isChecked()));
+        super.onSaveInstanceState(outState);
     }
 
 }
