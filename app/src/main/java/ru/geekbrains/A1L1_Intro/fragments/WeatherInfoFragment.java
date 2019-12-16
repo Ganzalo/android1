@@ -26,7 +26,6 @@ import ru.geekbrains.A1L1_Intro.recyclerview.RecyclerViewAdapter;
 
 public class WeatherInfoFragment extends Fragment {
 
-    private TextView citiesTextView;
     private TextView humidityTextView;
     private TextView overcastTextView;
     private CheckBox humidityCheckBox;
@@ -34,12 +33,8 @@ public class WeatherInfoFragment extends Fragment {
     private RecyclerView tempRecyclerView;
     private RecyclerViewAdapter adapter;
 
-    private static final String OVERCAST_STATE = "OVERCAST_STATE";
-    private static final String HUMIDITY_STATE = "HUMIDITY_STATE";
-
     static WeatherInfoFragment create(CoatContainer container) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();    // создание
-
         // Передача параметра
         Bundle args = new Bundle();
         args.putSerializable("index", container);
@@ -51,7 +46,6 @@ public class WeatherInfoFragment extends Fragment {
     int getIndex() {
         CoatContainer coatContainer = (CoatContainer) (Objects.requireNonNull(getArguments())
                 .getSerializable("index"));
-
         try {
             return Objects.requireNonNull(coatContainer).position;
         } catch (Exception e) {
@@ -62,7 +56,6 @@ public class WeatherInfoFragment extends Fragment {
     private String getCityName() {
         CoatContainer coatContainer = (CoatContainer) (Objects.requireNonNull(getArguments())
                 .getSerializable("index"));
-
         try {
             return Objects.requireNonNull(coatContainer).cityName;
         } catch (Exception e) {
@@ -75,7 +68,9 @@ public class WeatherInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_weather_info, null);
-        init(view);
+
+        if (!Holder.contains(getCityName()))
+            Holder.put(getCityName(), new Holder.Entry());
 
         TextView item = view.findViewById(R.id.cityTextView);
         item.setText(getCityName());
@@ -84,14 +79,14 @@ public class WeatherInfoFragment extends Fragment {
         TypedArray images = getResources().obtainTypedArray(R.array.coatofarms_imgs);
         imageView.setImageResource(images.getResourceId(getIndex(), -1));
 
+        init(view);
+
         return view;
     }
 
     private void init(View view) {
-
         humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
         overcastCheckBox = view.findViewById(R.id.overcastCheckBox);
-        citiesTextView = view.findViewById(R.id.cityTextView);
         humidityTextView = view.findViewById(R.id.valueHumidityTextView);
         overcastTextView = view.findViewById(R.id.valueOvercastTextView);
         tempRecyclerView = view.findViewById(R.id.tempRecyclerView);
@@ -99,27 +94,26 @@ public class WeatherInfoFragment extends Fragment {
         humidityCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int visibility = visibleView(((CheckBox) view).isChecked());
-                humidityTextView.setVisibility(visibility);
+                boolean state = ((CheckBox) view).isChecked();
+                humidityTextView.setVisibility(visibleView(state));
+                Holder.get(getCityName()).humidity = state;
             }
         });
 
         overcastCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int visibility = visibleView(((CheckBox) view).isChecked());
-                overcastTextView.setVisibility(visibility);
+                boolean state = ((CheckBox) view).isChecked();
+                overcastTextView.setVisibility(visibleView(state));
+                Holder.get(getCityName()).overcast = state;
             }
         });
 
+        overcastCheckBox.setChecked(Holder.get(getCityName()).overcast);
+        humidityCheckBox.setChecked(Holder.get(getCityName()).humidity);
+        overcastTextView.setVisibility(visibleView(overcastCheckBox.isChecked()));
+        humidityTextView.setVisibility(visibleView(humidityCheckBox.isChecked()));
 
-       // Toast.makeText(getContext(),"init", Toast.LENGTH_SHORT).show();
-        Holder.Entry entry = Holder.get(citiesTextView.getText().toString());
-        if (entry != null) {
-            //Toast.makeText(getContext(),"Holder.Entry " + entry.overcast, Toast.LENGTH_SHORT).show();
-            overcastCheckBox.setChecked(entry.overcast);
-            humidityCheckBox.setChecked(entry.humidity);
-        }
         fillRecyclerView();
     }
 
@@ -143,31 +137,6 @@ public class WeatherInfoFragment extends Fragment {
 
         tempRecyclerView.setLayoutManager(layoutManager);
         tempRecyclerView.setAdapter(adapter);
-    }
-
-
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        if (savedInstanceState != null) {
-//            boolean state = savedInstanceState.getBoolean(OVERCAST_STATE);
-//            Toast.makeText(getContext(),"onActivityCreated OVERCAST_STATE " + state, Toast.LENGTH_SHORT).show();
-//            overcastCheckBox.setChecked(state);
-//            humidityCheckBox.setChecked(savedInstanceState.getBoolean(HUMIDITY_STATE, false));
-//        }
-//    }
-
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        //Toast.makeText(getContext(),"onSaveInstanceState OVERCAST_STATE " + overcastCheckBox.isChecked(), Toast.LENGTH_SHORT).show();
-        outState.putBoolean(OVERCAST_STATE, overcastCheckBox.isChecked());
-        outState.putBoolean(HUMIDITY_STATE, humidityCheckBox.isChecked());
-
-        Holder.put(citiesTextView.getText().toString(), new Holder.Entry(citiesTextView.getText().toString(),
-                humidityCheckBox.isChecked(), overcastCheckBox.isChecked()));
-        super.onSaveInstanceState(outState);
     }
 
 }

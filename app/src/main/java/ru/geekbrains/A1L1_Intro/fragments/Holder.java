@@ -20,15 +20,16 @@ public class Holder {
         return holderMap.get(key);
     }
 
+    static boolean contains(String key) {
+        return holderMap.containsKey(key);
+    }
+
     static class Entry {
-        String string;
         boolean humidity = false;
         boolean overcast = false;
 
-        public Entry(String string, boolean humidity, boolean overcast) {
-            this.string = string;
-            this.humidity = humidity;
-            this.overcast = overcast;
+        public Entry() {
+
         }
     }
 
