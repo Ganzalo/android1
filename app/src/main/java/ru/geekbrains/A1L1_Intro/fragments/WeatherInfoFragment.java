@@ -16,6 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -32,6 +36,8 @@ public class WeatherInfoFragment extends Fragment {
     private CheckBox overcastCheckBox;
     private RecyclerView tempRecyclerView;
     private RecyclerViewAdapter adapter;
+    private MaterialButton saveButton;
+    private TextInputEditText commentText;
 
     static WeatherInfoFragment create(CoatContainer container) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();    // создание
@@ -90,6 +96,8 @@ public class WeatherInfoFragment extends Fragment {
         humidityTextView = view.findViewById(R.id.valueHumidityTextView);
         overcastTextView = view.findViewById(R.id.valueOvercastTextView);
         tempRecyclerView = view.findViewById(R.id.tempRecyclerView);
+        saveButton = view.findViewById(R.id.saveButton);
+        commentText = view.findViewById(R.id.commentText);
 
         humidityCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +117,23 @@ public class WeatherInfoFragment extends Fragment {
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String prevComment = Holder.get(getCityName()).comment;
+                Holder.get(getCityName()).comment = Objects.requireNonNull(commentText.getText()).toString();
+                Snackbar.make(saveButton, "Сохранение комментария", Snackbar.LENGTH_LONG) .setAction("Отмена", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Holder.get(getCityName()).comment = prevComment;
+                    }
+                }).show();
+            }
+        });
+
         overcastCheckBox.setChecked(Holder.get(getCityName()).overcast);
         humidityCheckBox.setChecked(Holder.get(getCityName()).humidity);
+        commentText.setText(Holder.get(getCityName()).comment);
         overcastTextView.setVisibility(visibleView(overcastCheckBox.isChecked()));
         humidityTextView.setVisibility(visibleView(humidityCheckBox.isChecked()));
 

@@ -11,4 +11,6 @@
     <string name="empty_list">Пустой лист</string>
     <string name="show_humidity_short">Показ. влажность</string>
     <string name="show_overcast_short">Показ. облачность</string>
+    <string name="comment">Комментарий</string>
+    <string name="save">Сохранить</string>
 </resources>

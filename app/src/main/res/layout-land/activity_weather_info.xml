@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/WeatherInfoTheme"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -44,10 +45,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tempRecyclerView"
+                style="@style/MarginStart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coatOfArmsImageView"
@@ -64,9 +63,7 @@
 
             <TextView
                 android:id="@+id/valueHumidityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                style="@style/MarginStart"
                 android:layout_marginTop="4dp"
                 android:text="90%"
                 android:textColor="@color/colorBlack"
@@ -89,11 +86,9 @@
 
             <TextView
                 android:id="@+id/valueOvercastTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
+                style="@style/MarginStart"
                 android:text="облачно"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -101,6 +96,29 @@
                 app:layout_constraintStart_toEndOf="@+id/overcastCheckBox"
                 app:layout_constraintTop_toTopOf="@+id/overcastCheckBox"
                 tools:ignore="HardcodedText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/commentLayout"
+                style="@style/MarginStart"
+                android:layout_width="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overcastCheckBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/commentText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/comment" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveButton"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                style="@style/MarginStart"
+                android:text="@string/save"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentLayout"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

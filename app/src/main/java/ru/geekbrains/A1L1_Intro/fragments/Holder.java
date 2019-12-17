@@ -27,6 +27,7 @@ public class Holder {
     static class Entry {
         boolean humidity = false;
         boolean overcast = false;
+        String comment = "";
 
         public Entry() {
 

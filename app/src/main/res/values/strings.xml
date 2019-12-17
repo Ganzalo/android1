@@ -11,4 +11,6 @@
     <string name="show_weather">Показать погоду</string>
     <string name="more_details">Подробнее</string>
     <string name="empty_list">Пустой лист</string>
+    <string name="comment">Комментарий</string>
+    <string name="save">Сохранить</string>
 </resources>

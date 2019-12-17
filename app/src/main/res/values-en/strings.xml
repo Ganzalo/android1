@@ -11,4 +11,6 @@
     <string name="empty_list">Empty list</string>
     <string name="show_humidity_short">Humidity:</string>
     <string name="show_overcast_short">Overcast:</string>
+    <string name="comment">Comment</string>
+    <string name="save">Save</string>
 </resources>
