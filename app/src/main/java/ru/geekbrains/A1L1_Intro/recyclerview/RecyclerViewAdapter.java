@@ -10,14 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ru.geekbrains.A1L1_Intro.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private ArrayList<DataClass> data = new ArrayList<>();
+    private List<DataClass> data = new ArrayList<>();
     private Context context;
 
-    public RecyclerViewAdapter(ArrayList<DataClass> data) {
+    public RecyclerViewAdapter(List<DataClass> data) {
         if(data != null) {
             this.data = data;
         }

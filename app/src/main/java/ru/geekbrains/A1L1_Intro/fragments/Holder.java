@@ -11,12 +11,10 @@ public class Holder {
     }
 
     static void put(String key, Entry value) {
-        System.out.println("put " + key);
         holderMap.put(key, value);
     }
 
     static Entry get(String key) {
-        System.out.println("get " + key);
         return holderMap.get(key);
     }
 

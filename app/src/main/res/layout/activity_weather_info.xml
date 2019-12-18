@@ -54,15 +54,13 @@
     <TextView
         android:id="@+id/valueHumidityTextView"
         style="@style/MarginStart"
-        android:text="90%"
         android:textColor="@color/colorBlack"
         android:layout_marginTop="2dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/humidityCheckBox"
-        app:layout_constraintTop_toTopOf="@+id/humidityCheckBox"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="@+id/humidityCheckBox" />
 
     <CheckBox
         android:id="@+id/overcastCheckBox"
@@ -78,14 +76,12 @@
         android:id="@+id/valueOvercastTextView"
         style="@style/MarginStart"
         android:layout_marginTop="2dp"
-        android:text="облачно"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/overcastCheckBox"
-        app:layout_constraintTop_toTopOf="@+id/overcastCheckBox"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="@+id/overcastCheckBox" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/commentLayout"

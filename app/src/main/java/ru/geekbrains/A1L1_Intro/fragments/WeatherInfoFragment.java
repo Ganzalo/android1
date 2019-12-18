@@ -3,6 +3,7 @@ package ru.geekbrains.A1L1_Intro.fragments;
 import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,24 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import ru.geekbrains.A1L1_Intro.CoatContainer;
 import ru.geekbrains.A1L1_Intro.R;
+import ru.geekbrains.A1L1_Intro.WeatherDataLoader;
 import ru.geekbrains.A1L1_Intro.recyclerview.DataClass;
 import ru.geekbrains.A1L1_Intro.recyclerview.RecyclerViewAdapter;
 
 public class WeatherInfoFragment extends Fragment {
+
+    private final Handler handler = new Handler();
 
     private TextView humidityTextView;
     private TextView overcastTextView;
@@ -85,12 +95,73 @@ public class WeatherInfoFragment extends Fragment {
         TypedArray images = getResources().obtainTypedArray(R.array.coatofarms_imgs);
         imageView.setImageResource(images.getResourceId(getIndex(), -1));
 
-        init(view);
+        initView(view);
 
         return view;
     }
 
-    private void init(View view) {
+    private void updateWeatherData(final String city) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final JSONObject jsonObject = WeatherDataLoader.getJSONData(getContext(), city);
+                if (jsonObject == null)
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "нет данных", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            renderWeather(jsonObject);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private void renderWeather(JSONObject jsonObject) {
+        try {
+            JSONArray list = jsonObject.getJSONArray("list");
+            List<DataClass> data = new ArrayList<>();
+            for (int i = 0; i < list.length(); i = i + 8 - 1) {
+                String date = parseDate(list.getJSONObject(i).getLong("dt"));
+                String temp = parseTemp(list.getJSONObject(i).getJSONObject("main").getDouble("temp"));
+                data.add(new DataClass(date, temp));
+            }
+            setParam(list.getJSONObject(0));
+            fillRecyclerView(data);
+        } catch (Exception exc) {
+            Toast.makeText(getContext(), "Ошибка обработки данных", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String parseDate(long date) {
+        return new SimpleDateFormat("dd/MM").format(new Date(date * 1000));
+    }
+
+    private String parseTemp(double temp) {
+        return (int) Math.round(temp) + "\u2103";
+    }
+
+    private void setParam(JSONObject object) {
+        try {
+            int clouds = object.getJSONObject("clouds").getInt("all");
+            int humidity = object.getJSONObject("main").getInt("humidity");
+            humidityTextView.setText(humidity + " %");
+            overcastTextView.setText(clouds + " %");
+        } catch (Exception exc) {
+            Toast.makeText(getContext(), "Ошибка обработки доп данных", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void initView(View view) {
         humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
         overcastCheckBox = view.findViewById(R.id.overcastCheckBox);
         humidityTextView = view.findViewById(R.id.valueHumidityTextView);
@@ -122,7 +193,7 @@ public class WeatherInfoFragment extends Fragment {
             public void onClick(View view) {
                 final String prevComment = Holder.get(getCityName()).comment;
                 Holder.get(getCityName()).comment = Objects.requireNonNull(commentText.getText()).toString();
-                Snackbar.make(saveButton, "Сохранение комментария", Snackbar.LENGTH_LONG) .setAction("Отмена", new View.OnClickListener() {
+                Snackbar.make(saveButton, "Сохранение комментария", Snackbar.LENGTH_LONG).setAction("Отмена", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Holder.get(getCityName()).comment = prevComment;
@@ -137,24 +208,16 @@ public class WeatherInfoFragment extends Fragment {
         overcastTextView.setVisibility(visibleView(overcastCheckBox.isChecked()));
         humidityTextView.setVisibility(visibleView(humidityCheckBox.isChecked()));
 
-        fillRecyclerView();
+        updateWeatherData("Moscow");
     }
 
     private int visibleView(Boolean visible) {
         return visible ? View.VISIBLE : View.INVISIBLE;
     }
 
-    private void fillRecyclerView() {
-        String[] dates = getResources().getStringArray(R.array.date);
-        String[] temperatures = getResources().getStringArray(R.array.temperatures);
-
-        ArrayList<DataClass> list = new ArrayList<>(dates.length);
-
-        for (int i = 0; dates.length > i; i++)
-            list.add(new DataClass(dates[i], temperatures[i]));
-
+    private void fillRecyclerView(List<DataClass> data) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        adapter = new RecyclerViewAdapter(list);
+        adapter = new RecyclerViewAdapter(data);
 
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
