@@ -42,12 +42,10 @@ public class WeatherInfoFragment extends Fragment {
 
     private TextView humidityTextView;
     private TextView overcastTextView;
-    private CheckBox humidityCheckBox;
-    private CheckBox overcastCheckBox;
     private RecyclerView tempRecyclerView;
-    private RecyclerViewAdapter adapter;
     private MaterialButton saveButton;
     private TextInputEditText commentText;
+    private final static int MAX_DAYS = 6;
 
     static WeatherInfoFragment create(CoatContainer container) {
         WeatherInfoFragment fragment = new WeatherInfoFragment();    // создание
@@ -79,6 +77,16 @@ public class WeatherInfoFragment extends Fragment {
         }
     }
 
+    private int getCityId() {
+        CoatContainer coatContainer = (CoatContainer) (Objects.requireNonNull(getArguments())
+                .getSerializable("index"));
+        try {
+            return Objects.requireNonNull(coatContainer).id;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     @Override
     @SuppressLint("Recycle")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -100,11 +108,11 @@ public class WeatherInfoFragment extends Fragment {
         return view;
     }
 
-    private void updateWeatherData(final String city) {
+    private void updateWeatherData(final int city) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final JSONObject jsonObject = WeatherDataLoader.getJSONData(getContext(), city);
+                final JSONObject jsonObject = WeatherDataLoader.getJSONData(city);
                 if (jsonObject == null)
                     handler.post(new Runnable() {
                         @Override
@@ -128,9 +136,10 @@ public class WeatherInfoFragment extends Fragment {
         try {
             JSONArray list = jsonObject.getJSONArray("list");
             List<DataClass> data = new ArrayList<>();
-            for (int i = 0; i < list.length(); i = i + 8 - 1) {
-                String date = parseDate(list.getJSONObject(i).getLong("dt"));
-                String temp = parseTemp(list.getJSONObject(i).getJSONObject("main").getDouble("temp"));
+            for (int i = 0; i < MAX_DAYS; i++) {
+                int index = (i * 8 - 1) < 0 ? 0 : i * 8 - 1;
+                String date = parseDate(list.getJSONObject(index).getLong("dt"));
+                String temp = parseTemp(list.getJSONObject(index).getJSONObject("main").getDouble("temp"));
                 data.add(new DataClass(date, temp));
             }
             setParam(list.getJSONObject(0));
@@ -151,10 +160,10 @@ public class WeatherInfoFragment extends Fragment {
 
     private void setParam(JSONObject object) {
         try {
-            int clouds = object.getJSONObject("clouds").getInt("all");
-            int humidity = object.getJSONObject("main").getInt("humidity");
-            humidityTextView.setText(humidity + " %");
-            overcastTextView.setText(clouds + " %");
+            String clouds = object.getJSONObject("clouds").getInt("all") + " %";
+            String humidity = object.getJSONObject("main").getInt("humidity") + " %";
+            humidityTextView.setText(humidity);
+            overcastTextView.setText(clouds);
         } catch (Exception exc) {
             Toast.makeText(getContext(), "Ошибка обработки доп данных", Toast.LENGTH_SHORT).show();
         }
@@ -162,8 +171,8 @@ public class WeatherInfoFragment extends Fragment {
 
 
     private void initView(View view) {
-        humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
-        overcastCheckBox = view.findViewById(R.id.overcastCheckBox);
+        CheckBox humidityCheckBox = view.findViewById(R.id.humidityCheckBox);
+        CheckBox overcastCheckBox = view.findViewById(R.id.overcastCheckBox);
         humidityTextView = view.findViewById(R.id.valueHumidityTextView);
         overcastTextView = view.findViewById(R.id.valueOvercastTextView);
         tempRecyclerView = view.findViewById(R.id.tempRecyclerView);
@@ -208,7 +217,7 @@ public class WeatherInfoFragment extends Fragment {
         overcastTextView.setVisibility(visibleView(overcastCheckBox.isChecked()));
         humidityTextView.setVisibility(visibleView(humidityCheckBox.isChecked()));
 
-        updateWeatherData("Moscow");
+        updateWeatherData(getCityId());
     }
 
     private int visibleView(Boolean visible) {
@@ -217,7 +226,7 @@ public class WeatherInfoFragment extends Fragment {
 
     private void fillRecyclerView(List<DataClass> data) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        adapter = new RecyclerViewAdapter(data);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(data);
 
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
 

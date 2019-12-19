@@ -83,7 +83,7 @@ public class CitiesFragment extends Fragment {
         // Здесь создаем из ресурсов список городов (из массива)
         ArrayAdapter adapter =
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.cities,
-                android.R.layout.simple_list_item_activated_1);
+                        android.R.layout.simple_list_item_activated_1);
         listView.setAdapter(adapter);
 
         listView.setEmptyView(emptyTextView);
@@ -134,9 +134,11 @@ public class CitiesFragment extends Fragment {
 
     private CoatContainer getCoatContainer() {
         String[] cities = getResources().getStringArray(R.array.cities);
+        int[] ids = getResources().getIntArray(R.array.cities_id);
         CoatContainer container = new CoatContainer();
         container.position = currentPosition;
         container.cityName = cities[currentPosition];
+        container.id = ids[currentPosition];
         return container;
     }
 }
