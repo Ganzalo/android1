@@ -24,21 +24,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    void addItem(DataClass dataClass) {
-        data.add(1, dataClass);
-        notifyItemInserted(1);
-        //notifyDataSetChanged(); // - перерисует сразу весь список
-    }
-
-    void removeItem() {
-        data.remove(0);
-        notifyItemRemoved(0);
-    }
-
-    void moveBtn() {
-
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

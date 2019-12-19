@@ -11,7 +11,6 @@ import java.net.URL;
 
 public class WeatherDataLoader {
 
-
     private static final String OPEN_WEATHER_API_KEY = "80e875f05e592979816e246496f61f8e";
     private static final String OPEN_WEATHER_API_URL =
             "https://api.openweathermap.org/data/2.5/forecast?id=%d&units=metric";
