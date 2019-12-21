@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 public class WeatherDataLoader {
 
@@ -20,7 +21,7 @@ public class WeatherDataLoader {
 
     public static JSONObject getJSONData(Integer id) {
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_API_URL, id));
+            URL url = new URL(String.format(Locale.getDefault(), OPEN_WEATHER_API_URL, id));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.addRequestProperty(KEY, OPEN_WEATHER_API_KEY);
 

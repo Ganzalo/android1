@@ -16,7 +16,6 @@ import ru.geekbrains.A1L1_Intro.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<DataClass> data = new ArrayList<>();
-    private Context context;
 
     public RecyclerViewAdapter(List<DataClass> data) {
         if(data != null) {
@@ -27,9 +26,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-
-        View view = LayoutInflater.from(context)
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_temperatures, parent, false);
         return new ViewHolder(view);
     }
